@@ -26,20 +26,22 @@ namespace PSJsonDiffPatch
             ValueFromPipelineByPropertyName = true)]
         public string SecondRecord { get; set; }
 
+        [Parameter(
+            Position = 2,
+            Mandatory = false,
+            ValueFromPipeline = false,
+            ValueFromPipelineByPropertyName = false)]
+        public Options Options { get; set; }
+
         private JsonDiffPatch jdp;
 
         protected override void BeginProcessing() {
-            jdp = new JsonDiffPatch();
+            if (jdp == default(JsonDiffPatch)) jdp = new JsonDiffPatch();
         }
 
 
         protected override void ProcessRecord() {
             WriteObject(jdp?.Diff(FirstRecord, SecondRecord));
-        }
-
-        protected override void EndProcessing ()
-        {
-
         }
     }
 }
