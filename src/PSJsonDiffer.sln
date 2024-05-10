@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C8F98AB8-C954-4B96-98EE-F2CEC610338D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSJsonDiffPatch", "PSJsonDiffPatch\PSJsonDiffPatch.csproj", "{67121FBC-32EE-403D-BAE2-7E110E6969A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSJsonDiffer", "PSJsonDiffer\PSJsonDiffer.csproj", "{67121FBC-32EE-403D-BAE2-7E110E6969A6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2F7408DD-92E9-411D-840E-23EE6FCBBD5C}"
 	ProjectSection(SolutionItems) = preProject

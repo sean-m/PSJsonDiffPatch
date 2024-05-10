@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Management.Automation;
 using System.Text;
-using JsonDiffPatchDotNet;
+using JsonDiffer;
 using Newtonsoft.Json.Linq;
 
 namespace PSJsonDiffPatch
 {
-    
+
     [Cmdlet(VerbsData.Compare, "Json")]
-    [OutputType(typeof(JToken))]
+    [OutputType(typeof(object))]
     public class CompareJsonCommand : PSCmdlet
     {
         [Parameter(
@@ -31,17 +31,30 @@ namespace PSJsonDiffPatch
             Mandatory = false,
             ValueFromPipeline = false,
             ValueFromPipelineByPropertyName = false)]
-        public Options Options { get; set; }
+        public SwitchParameter DetailedOutput { get; set; }
 
-        private JsonDiffPatch jdp;
+
+        [Parameter(
+            Position = 3,
+            Mandatory = false,
+            ValueFromPipeline = false,
+            ValueFromPipelineByPropertyName = false)]
+        public SwitchParameter ShowOriginalValues { get; set; }
+
 
         protected override void BeginProcessing() {
-            if (jdp == default(JsonDiffPatch)) jdp = new JsonDiffPatch();
+
         }
 
 
         protected override void ProcessRecord() {
-            WriteObject(jdp?.Diff(FirstRecord, SecondRecord));
+            var mode = DetailedOutput.ToBool() ? OutputMode.Detailed : OutputMode.Symbol;
+
+            var first = JToken.Parse(FirstRecord);
+            var second = JToken.Parse(SecondRecord);
+            var difference = JsonHelper.Difference(first, second, outputMode: mode, showOriginalValues: ShowOriginalValues.ToBool()).ToString();
+
+            WriteObject(difference);
         }
     }
 }
